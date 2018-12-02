@@ -33,7 +33,7 @@ def search(query):
 def getweathertown(town):
     town.lower()
     request = search(town)
-    print(request)
+    print(town, " -- ", request)
     week = parse(get_html(request))
     return week
 
@@ -42,4 +42,4 @@ def getweather():
     week = parse(get_html(request))
     return week
 
-print(search("тула"))
+#print(search("тула"))
