@@ -19,7 +19,8 @@ def parse(html):
         else:
             x['name'] = name
         x['date'] = (block.find('time', class_="forecast-briefly-old__date").get_text())
-        x['temp'] = (block.find('span', class_="temp__value").get_text())
+        x['temp_day'] = (block.find('div', class_="forecast-briefly-old__temp_day").find('span', class_="temp__value").get_text())
+        x['temp_night'] = (block.find('div', class_="forecast-briefly-old__temp_night").find('span', class_="temp__value").get_text())
         days.append(x)
     return days
 
@@ -33,6 +34,8 @@ def search(query):
 def getweathertown(town):
     town.lower()
     request = search(town)
+    if (request == None):
+        return request
     print(town, " -- ", request)
     week = parse(get_html(request))
     return week

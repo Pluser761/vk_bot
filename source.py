@@ -12,17 +12,20 @@ while True:
         if body['text'].lower() == "привет":
             vk.method("messages.send", {"peer_id":id, "message":"Привет!", "random_id": random.randint(0, 9223372036854775807)})
         elif body['text'].lower() == "покажи погоду":
-            message = "Вот тебе температура в Москве на 10 дней:\n"
+            message = "Вот температура в городе Москва на 10 дней:\n"
             week = weather.getweather()
             for day in week:
-                message += "В " + day['name'] + ", " + day['date'] + ", температура " + day['temp'] + ".\n"
+                message += "В " + day['name'] + " " + day['date'] + " днем температура достингет " + day['temp_day'] + ", а вечером " + day['temp_night'] + ".\n"
             vk.method("messages.send", {"peer_id":id, "message":message, "random_id": random.randint(0, 9223372036854775807)})
         elif body['text'].lower().find("покажи погоду в городе ") != -1:
             town = body['text'].lower()[23:]
-            message = "Вот тебе температура в "+body['text'][16:]+" на 10 дней:\n"
+            message = "Вот температура в городе "+body['text'][23:]+" на 10 дней:\n"
             week = weather.getweathertown(town)
-            for day in week:
-                message += "В " + day['name'] + ", " + day['date'] + ", температура " + day['temp'] + ".\n"
+            if week != None:
+                for day in week:
+                    message += "В " + day['name'] + " " + day['date'] + " днем температура достингет " + day['temp_day'] + ", а вечером " + day['temp_night'] + ".\n"
+            else:
+                message = "К сожалению, город не найден. Возможно, вы написали название не в именительном падеже."
             vk.method("messages.send", {"peer_id":id, "message":message, "random_id": random.randint(0, 9223372036854775807)})
         elif body['text'].lower() == "пока":
             vk.method("messages.send", {"peer_id":id, "message": "Удачи!", "random_id": random.randint(0, 9223372036854775807)})
