@@ -12,7 +12,7 @@ while True:
         if body['text'].lower() == "привет":
             vk.method("messages.send", {"peer_id":id, "message":"Привет!", "random_id": random.randint(0, 9223372036854775807)})
         elif body['text'].lower() == "покажи погоду":
-            message = "Вот температура в городе Москва на 10 дней:\n"
+            message = "Вот температура на 10 дней:\n"
             week = weather.getweather()
             for day in week:
                 message += "В " + day['name'] + " " + day['date'] + " днем температура достингет " + day['temp_day'] + ", а вечером " + day['temp_night'] + ".\n"

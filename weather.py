@@ -40,8 +40,8 @@ def getweathertown(town):
     return week
 
 def getweather():
-    request = "https://yandex.ru/pogoda/moscow"
+    request = "https://yandex.ru/pogoda"
     week = parse(get_html(request))
     return week
 
-#print(search("тула"))
+print(search("тула"))
