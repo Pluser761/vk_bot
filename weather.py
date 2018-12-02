@@ -36,7 +36,6 @@ def getweathertown(town):
     request = search(town)
     if (request == None):
         return request
-    print(town, " -- ", request)
     week = parse(get_html(request))
     return week
 
