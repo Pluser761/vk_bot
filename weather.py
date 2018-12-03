@@ -26,22 +26,19 @@ def parse(html):
 
 def search(query):
     soup = BeautifulSoup(get_html("https://yandex.ru/pogoda/search?request="+query), "lxml")
+    if (soup.find('div', class_="content").find('h1', class_="title title_level_1").get_text().lower() == "по вашему запросу ничего не нашлось"):
+        return None
     elements = soup.find_all('a', class_="link link_theme_normal place-list__item-name i-bem")
     for element in elements:
-        if element.get_text().lower() == query.lower():
+        if element.get_text().lower().find(query.lower()) != -1:
             return "https://yandex.ru" + element['href']
 
-def getweathertown(town):
-    town.lower()
-    request = search(town)
-    if (request == None):
-        return request
+def getweather(town):
+    if town == "":
+        request = "https://yandex.ru/pogoda"
+    else:
+        request = search(town)
+    if request == None:
+        return None
     week = parse(get_html(request))
     return week
-
-def getweather():
-    request = "https://yandex.ru/pogoda"
-    week = parse(get_html(request))
-    return week
-
-print(search("тула"))
